@@ -6,7 +6,7 @@ module State(
 );
 
   input  wire[12:0] d; //next state logic
-  input  wire       clk, reset; //Obvious, isn't it?
+  input  wire       clk, preset; //Obvious, isn't it?
   output reg[12:0]  q; //current state
 
   always @(posedge clk) begin

@@ -19,7 +19,7 @@ module ControlUnit(
   output wire       rw_mem;
 
   //Internal signals
-  wire[13:0] state, nextstate;
+  wire[12:0] state, nextstate;
 
   NextStateLogic nsl_unit(
     instruction[15],    //instruction format

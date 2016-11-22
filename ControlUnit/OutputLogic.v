@@ -6,7 +6,7 @@ module OutputLogic(
   rw_mem //signal asserted when the main memory is asserted
 );
 
-  input  wire[13:0] state;
+  input  wire[12:0] state;
   input  wire[4:0]  status;
   input  wire[15:0] ir; //instruction
   output wire[19:0] ctrlword;
@@ -22,8 +22,7 @@ module OutputLogic(
                         state[9]  |
                         state[10] |
                         state[11] |
-                        state[12] |
-                        state[13];
+                        state[12];
   //Address A[2]
   assign ctrlword[18] = state[0]  |
                         state[2]  & (~ir[4] & ir[7] | ir[4])|
@@ -36,8 +35,7 @@ module OutputLogic(
                         state[9]  |
                         state[10] |
                         state[11] |
-                        state[12] |
-                        state[13];
+                        state[12];
 
   //Address A[1]
   assign ctrlword[17] = state[0] |
@@ -61,8 +59,7 @@ module OutputLogic(
                         state[7] & (ir[10] | ir[9] | ir[8]) & ~ir[7] |
                         state[8] & ~ir[11]|
                         state[9] |
-                        state[12] |
-                        state[13];
+                        state[11];
  
   //Address B[3]
   assign ctrlword[15] = state[2] & ir[4] |
@@ -73,8 +70,7 @@ module OutputLogic(
                         state[9] |
                         state[10] |
                         state[11] |
-                        state[12] |
-                        state[13];
+                        state[12];
   //Address B[2]
   assign ctrlword[14] = state[2] & ir[2] |
                         state[3] |
@@ -83,17 +79,16 @@ module OutputLogic(
                         state[6] & ~(ir[10 | ir[9] | ir[8]]) |
                         state[7] |
                         state[9] |
-                        state[10] & ~status[4]|
+                        state[10] |
                         state[11] |
-                        state[12] |
-                        state[13];
+                        state[12] & ~status[4];
   //Address B[1]
   assign ctrlword[13] = state[2] & (~ir[4] & ir[1] | ir[4]) |
                         state[4] & ir[1] |
                         state[5] & ir[9] |
                         state[8] & ir[11] |
-                        state[11] |
-                        state[12];
+                        state[10] |
+                        state[11];
   //Address B[0]
   assign ctrlword[12] = state[2] & (~ir[4] & ir[0] | ir[4] & ir[3]) |
                         state[3] |
@@ -103,14 +98,13 @@ module OutputLogic(
                         state[7] |
                         state[8] |
                         state[9] |
-                        state[12]|
-                        state[13];
+                        state[11];
   //Address D[3]
   assign ctrlword[11]  = ~(state[1] |
                           state[3] | 
                           state[5] |
                           state[9] |
-                          state[11]);
+                          state[10]);
 
   //Address D[2]
   assign ctrlword[10]  = state[0] |
@@ -122,9 +116,7 @@ module OutputLogic(
                         state[8] |
                         state[9] & ir[10] |
                         state[10] |
-                        state[11] |
-                        state[12] |
-                        state[13];
+                        state[12];
   
   //Address D[1]
   assign ctrlword[9]  = state[0] |
@@ -133,8 +125,7 @@ module OutputLogic(
                         state[5] & ir[9] |
                         state[9] & ir[9] |
                         state[10] |
-                        state[11] |
-                        state[13];
+                        state[12];
   
   //Address D[0]
   assign ctrlword[8]  = state[0] |
@@ -144,14 +135,10 @@ module OutputLogic(
                         state[6] |
                         state[8] |
                         state[9] & ir[8] |
-                        state[11] |
-                        state[12];
-  //RW_mem
+                        state[10];
+  //rw file register
   assign ctrlword[7]  = ~(state[1] | 
-                          state[5] & ir[11]) |
-                          state[7] |
-                          state[11] |
-                          state[13];
+                          state[5] & ir[11]);
   //Data selection
   assign ctrlword[6]  = state[0] |
                         state[5] & ~ir[11];
@@ -177,7 +164,8 @@ module OutputLogic(
   status[0] |  (status[1] ^ status[2]) &  ir[10] & ~ir[9] &  ir[8] | //ble
               ~(status[1] ^ status[2]) &  ir[10] &  ir[9] & ~ir[8] | //bge
                (status[1] ^ status[2]) &  ir[10] &  ir[9] &  ir[8] 
-                                   );
+                                   ) |
+                       state[11];
 
   
   //operational code[3]
@@ -190,7 +178,7 @@ module OutputLogic(
                         state[6] & ~(ir[10] | ir[9] | ir[8]) |
                         state[7] & (~(ir[10] | ir[9] | ir[8]) | ((ir[10] | ir[9] | ir[8])&ir[7])) |
                         state[9] & ir[11] |
-                        state[10] |
+                        state[11] |
                         state[12];
 
   //operational code[1]
