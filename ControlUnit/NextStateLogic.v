@@ -24,13 +24,13 @@ module NextStateLogic(
   assign nextstate[3] = state[2];
 
   //Operand fetch in memory instructions
-  assign nextstate[4] = state[1] & ~opc2[3] & opc2[2] & opc2[1];
+  assign nextstate[4] = state[1] & ~opc1 & ~opc2[3] & opc2[2] & opc2[1];
   
   //Instruction execution in memory instructions
   assign nextstate[5] = state[4];
 
   //Operand fetch in jump instructions
-  assign nextstate[6] = state[1] & opc2[3] & ~opc2[2] & ~opc2[1] & opc2[0];
+  assign nextstate[6] = state[1] & ~opc1 & opc2[3] & ~opc2[2] & ~opc2[1] & opc2[0];
 
   //Instruction execution in jump instructions
   assign nextstate[7] = state[6];

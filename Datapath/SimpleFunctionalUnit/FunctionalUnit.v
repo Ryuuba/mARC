@@ -24,8 +24,8 @@ module FunctionalUnit(
       4'b0001: result = a | b;
       4'b0010: result = ~a;
       4'b0011: result = a ^ b;
-      4'b0100: result = a + b + opcode[0];
-      4'b0101: result = a + ~b + opcode[0];
+      4'b01x0: result = a + b + opcode[0];
+      4'b01x1: result = a + ~b + opcode[0];
       4'b10xx: result = a[7:0] * b[7:0];
       4'b1100: result = a << b[3:0];
       4'b1101: result = a >> b[3:0];

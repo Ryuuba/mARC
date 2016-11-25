@@ -11,6 +11,9 @@ module testbench;
     wire[15:0] busA, busB, instruction;
 
     integer i; //iterator
+    
+    reg[15:0] aux;
+    reg[15:0] dest;
 
     always
     begin
@@ -33,35 +36,25 @@ module testbench;
     begin
       $dumpfile("datapath.vcd");
       $dumpvars(0, testbench);
-      ctrlword = 20'b00000000000000000000;//ID
+      ctrlword = 20'b0000001001000000000000;//ID
       reset = 1;
       clk = 0;
-      dataIn = 16'b0101000101000000; //setlow 64, %r1
-      #1.5;
-      reset = 0;
-      ctrlword = 20'b11100000111111000000;//IF
-      #2;
-      ctrlword = 20'b00000000000000000000;//ID
-      #2;
-      ctrlword = 20'b11111001110110000000;//OF setlow
-      #2;
-      ctrlword = 20'b11011101000110000000;//EI
-      #2;
-      ctrlword = 20'b11101100111010000100;//IP
-      dataIn = 16'b0101101000000001; //sethi 1, %r2
-      #2;
-      ctrlword = 20'b11100000111111000000;//IF
-      #2;
-      ctrlword = 20'b00000000000000000000;//DO
-      #2;
-      ctrlword = 20'b10101011110110000000;//OF sethi
-      #2;
-      ctrlword = 20'b11111101001010001101;//EW sethi
-      #2;
-      ctrlword = 20'b11101100111010000100;//IP
-      dataIn = 16'b0000000000000000; //nop
-      #2;
-      ctrlword = 20'b11100000111111000000;//IF
+      dataIn = 2; //setlow 64, %r1
+      #1;
+      for (i = 0; i < 16; i = i + 1) begin
+        aux = i;
+        ctrlword = {ctrlword[21:21],aux,crtlword[7:0]};
+        dataIn = dataIn**i;
+        #2;
+      end
+      aux = 0;
+      for (i = 0; i < 16; i = i + 1) begin
+        dest = i;
+        aux = i;
+        ctrlword = {crtlword[21:20],aux,crtlword[15:12],dest,aux,aux};
+        dataIn = dataIn**i;
+        #2;
+      end      
       #2 $finish;
     end
 
