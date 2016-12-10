@@ -16,10 +16,9 @@ module ProcessorStatusRegister(
     input wire[3:0] flags;
     output reg[4:0] status;
     
-    always @ (posedge clk or reset) begin
-        if (rw) begin
-            status <= {displacement,flags};
-        end
+    always @ (negedge clk or reset) begin
+        if  (rw && displacement) status[4] <= displacement;
+        else if (rw) status <= {displacement, flags};
         if (reset) begin
             status <= 5'b00000;
         end

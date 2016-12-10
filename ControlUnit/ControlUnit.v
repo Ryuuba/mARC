@@ -1,3 +1,6 @@
+//`include "NextStateLogic.v"
+//`include "State.v"
+//`include "OutputLogic.v"
 `include "ControlUnit/NextStateLogic.v"
 `include "ControlUnit/State.v"
 `include "ControlUnit/OutputLogic.v"

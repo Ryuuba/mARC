@@ -19,12 +19,11 @@ module testbench;
   initial begin
     $dumpfile("controlunit.vcd");
     $dumpvars(0, testbench);    
-    clk = 0;
+    clk = 1;
     status = 0;
     reset = 1;
-    instruction = 16'b0010111100001011;
-    #1.1 reset = 0;
-    #9.9 instruction = 16'b0010111100010011; //subcc %r0, %r3, %r7
+    //instruction =  16'b0010111100000011; //subcc %r0, %r3, %r7
+    instruction     =  16'b0010001100100010; //subcc %r0, %r3, %r7
     #10 instruction =  16'b0011011100000001; //ld [%r1+%r0], %r7
     #10 instruction =  16'b0011111100010001; //st [%r1-%r0], %r7
     #10 instruction =  16'b0100100000000111; //jmpl
