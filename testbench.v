@@ -27,12 +27,16 @@ module testbench;
   initial begin
     $dumpfile("marcee.vcd");
     $dumpvars(0, testbench);
-    clk = 1;
-    reset = 1;
-    dataIn = 16'b0101000101000000; //setlow 64, %r1
+    clk = 0;
+    reset = 0;
+    dataIn = 16'b1_000001000000000; //call 1024 to initialize the PC register
     #0.5;
+    reset = 1;
+    #1;
     reset = 0;
     #9.5;
+    dataIn = 16'b0101000101000000; //setlow 64, %r1
+    #10;
     dataIn = 16'b0101101000000001; //sethi 1, %r2
     #10;
     dataIn = 16'b1111100000000010; //call 0xF004 (61444)

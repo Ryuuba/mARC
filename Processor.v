@@ -1,3 +1,6 @@
+`ifndef PROCESSOR_V
+`define PROCESSOR_V
+
 `include "Datapath/Datapath.v"
 `include "ControlUnit/ControlUnit.v"
 
@@ -41,3 +44,5 @@ module Processor(
   );
 
 endmodule //Processor
+
+`endif

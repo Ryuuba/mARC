@@ -1,9 +1,15 @@
-//`include "NextStateLogic.v"
-//`include "State.v"
-//`include "OutputLogic.v"
-`include "ControlUnit/NextStateLogic.v"
-`include "ControlUnit/State.v"
-`include "ControlUnit/OutputLogic.v"
+`ifndef CONTROL_UNIT_V
+`define CONTROL_UNIT_V
+
+`ifndef PROCESSOR_V
+  `include "NextStateLogic.v"
+  `include "State.v"
+  `include "OutputLogic.v"
+`else
+  `include "ControlUnit/NextStateLogic.v"
+  `include "ControlUnit/State.v"
+  `include "ControlUnit/OutputLogic.v"
+`endif
 
 module ControlUnit(
   clk,         //clock signal
@@ -47,3 +53,5 @@ module ControlUnit(
   );
 
 endmodule // ControUnit
+
+`endif

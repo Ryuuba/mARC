@@ -22,14 +22,14 @@ module FunctionalUnit(
     casex (opcode)
       4'b0000: result = a & b;
       4'b0001: result = a | b;
-      4'b0010: result = ~a;
+      4'b0010: result = ~(a ^ b);
       4'b0011: result = a ^ b;
       4'b01x0: result = a + b + opcode[0];
       4'b01x1: result = a + ~b + opcode[0];
       4'b10xx: result = a[7:0] * b[7:0];
       4'b1100: result = a << b[3:0];
       4'b1101: result = a >> b[3:0];
-      4'b1110: result = {{8{a[7]}},a[7:0]};//sign extension
+      4'b1110: result = (opcode == 9) ? {{8{a[7]}},a[7:0]} : {{12{a[3]}},a[3:0]};//sign extension
       default: result = a + 2;//incpc  
     endcase
   end
@@ -39,13 +39,13 @@ module FunctionalUnit(
   //TODO: Compute carries hierarchically 
   always @(*) begin
     carry[0]  = opcode[0];
-    status[0] = ~|result;//Z
-    status[1] = result[15];//N
+    status[0] = ~|result; //Z
+    status[1] = result[15]; //N
     for (i = 0; i < 16 ; i = i + 1) begin
       carry[i+1] = a[i]&b[i] | (a[i]^b[i]) & carry[i];
     end
-    status[3] = carry[16];//C
-    status[2] = carry[16] ^ carry[15];//V
+    status[2] = carry[16] ^ carry[15]; //V
+    status[3] = carry[16]; //C
   end
 
 endmodule // FunctionalUnit

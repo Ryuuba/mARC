@@ -8,8 +8,7 @@ module Mux2x1(a, b, sel, y);
   input wire sel;
 	output reg[width-1:0] y;
 	
-	always @(*)
-	begin
+	always @(*) begin
 		if (sel == 1'b0)
 			y = a;
 		else 

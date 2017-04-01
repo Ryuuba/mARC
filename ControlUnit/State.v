@@ -10,13 +10,10 @@ module State(
   output reg[12:0]  q; //current state
 
   always @(posedge clk) begin
+    if (preset) 
+      q <= 13'b0000000000001;
+    else
       q <= d;
   end
-  
-  always @(preset) begin 
-    if (preset) begin
-        q <= 13'b0000000000001;
-     end
-  end 
 
 endmodule // State

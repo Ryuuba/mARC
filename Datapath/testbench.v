@@ -32,29 +32,29 @@ module testbench;
     );
 
     //Testing the register file
-    initial
-    begin
+    initial begin
       $dumpfile("datapath.vcd");
       $dumpvars(0, testbench);
-      ctrlword = 20'b0000001001000000000000;//ID
-      reset = 1;
+      //Fill the file register
       clk = 0;
-      dataIn = 2; //setlow 64, %r1
       #1;
       for (i = 0; i < 16; i = i + 1) begin
-        aux = i;
-        ctrlword = {ctrlword[21:21],aux,crtlword[7:0]};
-        dataIn = dataIn**i;
+        dataIn = 2**i;
+        ctrlword = {i[3:0],i[3:0],i[3:0],1'b1,1'b1,1'b0,1'b0,4'b0};
         #2;
       end
-      aux = 0;
-      for (i = 0; i < 16; i = i + 1) begin
-        dest = i;
-        aux = i;
-        ctrlword = {crtlword[21:20],aux,crtlword[15:12],dest,aux,aux};
-        dataIn = dataIn**i;
+      //Test the operations of the functional unit except sign ext and incpc
+      for (i = 0; i < 14; i = i + 1) begin
+        ctrlword = {i[3:0],i[3:0],i[3:0],1'b1,1'b0,1'b0,1'b0,i[3:0]};
         #2;
-      end      
+      end
+      //Test sign extension
+      dataIn = 16'b0_0100_011_001_1_1000;//add %r1, -8, %r3
+      ctrlword = 20'b0000_0000_1111_1_1_0_0_0000;
+      #2;
+      ctrlword = 20'b1111_0000_1101_1_0_0_0_1110;
+      //Test incpc
+      ctrlword = 20'b1110_0000_1110_1_0_0_0_1111;
       #2 $finish;
     end
 

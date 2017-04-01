@@ -1,0 +1,58 @@
+$date
+	Thu Mar 16 14:22:28 2017
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	100ps
+$end
+$scope module Testbench $end
+$var wire 4 ! f [3:0] $end
+$var reg 1 " in $end
+$var reg 2 # sel [1:0] $end
+$var integer 32 $ i [31:0] $end
+$scope module demux2x4 $end
+$var wire 1 " in $end
+$var wire 2 % sel [1:0] $end
+$var wire 4 & f [3:0] $end
+$scope begin genblk1[0] $end
+$upscope $end
+$scope begin genblk1[1] $end
+$upscope $end
+$scope begin genblk1[2] $end
+$upscope $end
+$scope begin genblk1[3] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b1 &
+b0 %
+b0 $
+b0 #
+1"
+b1 !
+$end
+#10
+b10 !
+b10 &
+b1 #
+b1 %
+b1 $
+#20
+b100 !
+b100 &
+b10 #
+b10 %
+b10 $
+#30
+b1000 !
+b1000 &
+b11 #
+b11 %
+b11 $
+#40
+b100 $

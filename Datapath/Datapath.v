@@ -1,11 +1,17 @@
 `ifndef DATAPATH_V
 `define DATAPATH_V
 
-`include "Datapath/SimpleFunctionalUnit/FunctionalUnit.v"
-//`include "Datapath/FunctionalUnit/FunctionalUnit.v"
-`include "Datapath/FileRegister/FileRegister.v"
-`include "Datapath/Basic/Mux2x1p.v"
-`include "Datapath/PSR/ProcessorStatusRegister.v"
+`ifdef PROCESSOR_V
+  `include "Datapath/SimpleFunctionalUnit/FunctionalUnit.v"
+  `include "Datapath/FileRegister/FileRegister.v"
+  `include "Datapath/Basic/Mux2x1p.v"
+  `include "Datapath/PSR/ProcessorStatusRegister.v"
+`else
+  `include "SimpleFunctionalUnit/FunctionalUnit.v"
+  `include "FileRegister/FileRegister.v"
+  `include "Basic/Mux2x1p.v"
+  `include "PSR/ProcessorStatusRegister.v"
+`endif
 
 //The first line in the port module is the control word determining
 //the datapath behavior
@@ -26,6 +32,7 @@ module Datapath(
 );
 
     input wire clk, reset;
+    //{addrA}{addrb}{addrD}{FRrw}{seld}{PSRrw}{d}{opcode}
     input wire[19:0] ctrlword;
     input wire[15:0] dataIn;
     
@@ -37,18 +44,17 @@ module Datapath(
     wire[15:0] dataBus; //Output of the MUX D
     wire[3:0] flags; //The status of an operation (V C N Z)
 
-    //FileRegister(clk, addrA, addrB, addrD, rw, data, busA, busB);
     FileRegister file_register_u(
-        clk,             //clock signal
-        reset,           //reset signal
-        ctrlword[19:16], //addrA
-        ctrlword[15:12], //addrB
-        ctrlword[11:8],  //addrD
-        ctrlword[7],     //~read signal
-        dataBus,         //data bus
-        busA,            //address bus
-        busB,            //output data bus
-        instruction      //the content of the IR register
+        dataBus,          //data bus
+        busA,             //address bus
+        busB,             //data output bus
+        instruction,      //the content of the IR register
+        ctrlword[19:16],  //addrA
+        ctrlword[15:12],  //addrB
+        ctrlword[11:8],   //addrD
+        reset,            //reset signal
+        ctrlword[7],      //~read signal
+        clk               //clock signal
     );
 
     //FunctionalUnit(a, b, opcode, y, status)

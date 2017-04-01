@@ -22,7 +22,7 @@ module OutputLogic(
                         state[9]  |
                         state[10] |
                         state[11] |
-                        state[12] & (~status[4] | status[4] & (ir[10] | ir[9] | ir[8]));
+                        state[12] & (~status[4] | ~ir[15]&(ir[10] | ir[9] | ir[8]));
   //Address A[2]
   assign ctrlword[18] = state[0]  |
                         state[2]  & (~ir[4] & ir[2] | ir[4])|
@@ -35,7 +35,7 @@ module OutputLogic(
                         state[9]  |
                         state[10] |
                         state[11] |
-                        state[12] & (~status[4] | status[4] & (ir[10] | ir[9] | ir[8]));
+                        state[12] & (~status[4] | ~ir[15]&(ir[10] | ir[9] | ir[8]));
 
   //Address A[1]
   assign ctrlword[17] = state[0] |
@@ -47,7 +47,7 @@ module OutputLogic(
                         state[9] & ir[11] |
                         state[10] |
                         state[11] |
-                        state[12] & (~status[4] | status[4] & (ir[10] | ir[9] | ir[8]));
+                        state[12] & (~status[4] | ~ir[15]&(ir[10] | ir[9] | ir[8]));
   
   //Address A[0]
   assign ctrlword[16] = state[2] & (~ir[4] & ir[0] | ir[4]) |
