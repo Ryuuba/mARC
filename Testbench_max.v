@@ -25,7 +25,7 @@ module testbench;
   end
   
   initial begin
-    $dumpfile("marcee.vcd");
+    $dumpfile("max.vcd");
     $dumpvars(0, testbench);
     clk = 0;
     reset = 0;

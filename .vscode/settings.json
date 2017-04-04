@@ -4,4 +4,15 @@
   "editor.tabSize": 2,
   // Controla el tamaño de fuente en píxeles.
   "editor.fontSize": 14,
+  // Columns at which to show vertical rulers
+  "editor.rulers": [80],
+  // Controls how lines should wrap. Can be:
+  //  - 'off' (disable wrapping),
+  //  - 'on' (viewport wrapping),
+  //  - 'wordWrapColumn' (wrap at `editor.wordWrapColumn`) or
+  //  - 'bounded' (wrap at minimum of viewport and `editor.wordWrapColumn`).
+  "editor.wordWrap": "wordWrapColumn",
+
+  // Controls the wrapping column of the editor when `editor.wordWrap` is 'wordWrapColumn' or 'bounded'.
+  "editor.wordWrapColumn": 80
 }

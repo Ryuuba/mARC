@@ -166,7 +166,7 @@ module OutputLogic(
   //operational code[2]
   assign ctrlword[2]  = state[3] & ir[13] |
                         state[4] |
-                        state[6] & (ir[10] | ir[9] | ir[8]) |
+                        state[6] |
                         state[9] & ir[11] |
                         state[11] |
                         state[12];
