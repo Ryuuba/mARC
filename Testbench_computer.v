@@ -41,6 +41,7 @@ module Testbench;
     #3;
     reset = 0;
     #1.5;
+    //While the %ir doesn't store st %r3, %r1
     while (mARC.datapath_unit.instruction != 16'b0_0111_011_001_0_0_000)
       #1.0;
     #10 $finish;
