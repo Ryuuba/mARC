@@ -13,8 +13,8 @@ module Testbench;
   Processor mARC(//marcee
     data_mem,   //data or instructions coming from the main memory
     mem_addr,   //Data comming from the bus A of the datapath
-    data_proc,    //Data comming from the bus B of the datapath to the main mem
-    rw,      //signal indicating whether the main memory is to be written or not
+    data_proc,  //Data comming from the bus B of the datapath to the main mem
+    rw,         //signal indicating whether the main memory is to be written or not
     reset,      //signal reseting the processor
     clk         //clock signal
   );

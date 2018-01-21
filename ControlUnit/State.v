@@ -7,13 +7,17 @@ module State(
 
   input  wire[12:0] d; //next state logic
   input  wire       clk, preset; //Obvious, isn't it?
-  output reg[12:0]  q; //current state
+  output wire[12:0]  q; //current state
+
+  reg[12:0] state;
 
   always @(posedge clk) begin
     if (preset) 
-      q <= 13'b0000000000001;
+      state <= 13'b0000000000001;
     else
-      q <= d;
+      state <= d;
   end
 
+  assign q = state;
+  
 endmodule // State

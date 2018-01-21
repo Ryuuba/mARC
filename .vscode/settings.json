@@ -11,7 +11,7 @@
   //  - 'on' (viewport wrapping),
   //  - 'wordWrapColumn' (wrap at `editor.wordWrapColumn`) or
   //  - 'bounded' (wrap at minimum of viewport and `editor.wordWrapColumn`).
-  "editor.wordWrap": "wordWrapColumn",
+  //"editor.wordWrap": "wordWrapColumn",
 
   // Controls the wrapping column of the editor when `editor.wordWrap` is 'wordWrapColumn' or 'bounded'.
   "editor.wordWrapColumn": 80
